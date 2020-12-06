@@ -9,3 +9,12 @@ canvas {
     height: auto!important;
     width: auto!important;
 }
+
+.dataForm {
+    font-weight: bold;
+}
+
+.card {
+
+    margin-bottom: 30px;
+}

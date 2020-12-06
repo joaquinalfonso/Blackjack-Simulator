@@ -1,8 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="./css/style.css" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="This is a simple blackjack game simulator to evaluate how the stop limit influences the odds of winning.">
+  <meta name="author" content="Joaquín Alfonso González">
+
+  <title>Blackjack simulator</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+  <link rel="stylesheet" href="./css/style.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 </head>
 <body>
@@ -16,22 +23,31 @@
       Developed as a hobby by Joaquín Alfonso González. Source code of this website is available at <a href="https://github.com/joaquinalfonso/Blackjack-Simulator" target="_blank">github</a>
     </div>    
     
-    <form class="form">
+    <!-- <form class="form-inline">
       <div class="form-group row">
-        <label for="gamesNumber"  class="col-sm-2 col-form-label labelForm">Number of games</label>
-        <div class="col-sm-2 dataForm">
-          <input type="number" class="form-control" id="gamesNumber" name="gamesNumber" min="1">
+        <div class="col-6">
+          <label for="gamesNumber" class="col-6">Number of games</label>
+          <input type="number" class="form-control col-6" id="gamesNumber" name="gamesNumber" min="1">
         </div>
-        <button type="button" id="RunButton" class="btn btn-primary mb-2">                                                
-          <span class="float">Run simulation</span>
-        </button>
+        <button type="button" id="RunButton" class="btn btn-primary col-6">Run simulation</button>
       </div>
-    </form>
+    </form> -->
+    
+    <div class="row">
+      <label for="gamesNumber" class="col-3 col-xl-4 col-lg-2 col-md-3 col-sm-6 col-form-label">Number of games</label>
+      <div class="input-group col-9 col-xl-4 col-md-5 col-sm-6 mb-3">
+        <input type="number" class="form-control" id="gamesNumber" placeholder="" aria-label="" aria-describedby="basic-addon2" min="1">
+        <div class="input-group-append_ ml-2">
+          <button class="btn btn-primary ml-2" id="RunButton" type="button">Run simulation</button>
+        </div>
+      </div>
+    </div>
+
     <br />
 
     <div class="row">
-      <div class="col-sm-3">
-        <div class="card bg-light" style="max-width: 18rem;">
+      <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+        <div class="card bg-light">
           <div class="card-header">
             <h5>Player 1</h5>
             <div class="form-group row">
@@ -45,20 +61,20 @@
               <form class="form">
                 
                 <div class="form-group row">
-                  <label for="won1"  class="col-sm-4 labelForm">Won</label>
-                  <div class="col-sm-8 dataForm">
+                  <label for="won1"  class="col-5 labelForm">Won</label>
+                  <div class="col-7 dataForm">
                     <span id="won1"></span>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label for="ties1"  class="col-sm-4 labelForm">Ties</label>
-                  <div class="col-sm-8 dataForm">
+                  <label for="ties1"  class="col-5 labelForm">Ties</label>
+                  <div class="col-7 dataForm">
                     <span id="ties1"></span>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label for="losses1"  class="col-sm-4 labelForm">Losses</label>
-                  <div class="col-sm-8 dataForm">
+                  <label for="losses1"  class="col-5 labelForm">Losses</label>
+                  <div class="col-7 dataForm">
                     <span id="losses1"></span>
                   </div>
                 </div>  
@@ -73,8 +89,8 @@
         </div>
       </div>
 
-      <div class="col-sm-3">
-        <div class="card bg-light" style="max-width: 18rem;">
+      <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+        <div class="card bg-light">
           <div class="card-header">
             <h5>Player 2</h5>
             <div class="form-group row">
@@ -88,20 +104,20 @@
               <form class="form">
                 
                 <div class="form-group row">
-                  <label for="won2"  class="col-sm-4 labelForm">Won</label>
-                  <div class="col-sm-8 dataForm">
+                  <label for="won2"  class="col-5 labelForm">Won</label>
+                  <div class="col-7 dataForm">
                     <span id="won2"></span>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label for="ties2"  class="col-sm-4 labelForm">Ties</label>
-                  <div class="col-sm-8 dataForm">
+                  <label for="ties2"  class="col-5 labelForm">Ties</label>
+                  <div class="col-7 dataForm">
                     <span id="ties2"></span>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label for="losses2"  class="col-sm-4 labelForm">Losses</label>
-                  <div class="col-sm-8 dataForm">
+                  <label for="losses2"  class="col-5 labelForm">Losses</label>
+                  <div class="col-7 dataForm">
                     <span id="losses2"></span>
                   </div>
                 </div>  
@@ -116,8 +132,8 @@
         </div>
       </div>
 
-      <div class="col-sm-3">
-        <div class="card bg-light" style="max-width: 18rem;">
+      <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+        <div class="card bg-light">
           <div class="card-header">
             <h5>Player 3</h5>
             <div class="form-group row">
@@ -131,20 +147,20 @@
               <form class="form">
                 
                 <div class="form-group row">
-                  <label for="won3"  class="col-sm-4 labelForm">Won</label>
-                  <div class="col-sm-8 dataForm">
+                  <label for="won3"  class="col-5 labelForm">Won</label>
+                  <div class="col-7 dataForm">
                     <span id="won3"></span>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label for="ties3"  class="col-sm-4 labelForm">Ties</label>
-                  <div class="col-sm-8 dataForm">
+                  <label for="ties3"  class="col-5 labelForm">Ties</label>
+                  <div class="col-7 dataForm">
                     <span id="ties3"></span>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label for="losses3"  class="col-sm-4 labelForm">Losses</label>
-                  <div class="col-sm-8 dataForm">
+                  <label for="losses3"  class="col-5 labelForm">Losses</label>
+                  <div class="col-7 dataForm">
                     <span id="losses3"></span>
                   </div>
                 </div>  
@@ -159,8 +175,8 @@
         </div>
       </div>
 
-      <div class="col-sm-3">
-        <div class="card bg-light" style="max-width: 18rem;">
+      <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+        <div class="card bg-light">
           <div class="card-header">
             <h5>Player 4</h5>
             <div class="form-group row">
@@ -174,20 +190,20 @@
               <form class="form">
                 
                 <div class="form-group row">
-                  <label for="won4"  class="col-sm-4 labelForm">Won</label>
-                  <div class="col-sm-8 dataForm">
+                  <label for="won4"  class="col-5 labelForm">Won</label>
+                  <div class="col-7 dataForm">
                     <span id="won4"></span>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label for="ties4"  class="col-sm-4 labelForm">Ties</label>
-                  <div class="col-sm-8 dataForm">
+                  <label for="ties4"  class="col-5 labelForm">Ties</label>
+                  <div class="col-7 dataForm">
                     <span id="ties4"></span>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label for="losses4"  class="col-sm-4 labelForm">Losses</label>
-                  <div class="col-sm-8 dataForm">
+                  <label for="losses4"  class="col-5 labelForm">Losses</label>
+                  <div class="col-7 dataForm">
                     <span id="losses4"></span>
                   </div>
                 </div>  

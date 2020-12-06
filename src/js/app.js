@@ -114,7 +114,7 @@ function PrintResults(results) {
 		let ties = document.getElementById("ties" + (i + 1));
 		let losses = document.getElementById("losses" + (i + 1));
 
-		won.innerHTML = results[i].playerWins + " (" + results[i].playerBlackJack + " Blackjack)";
+		won.innerHTML = results[i].playerWins + "<br />" + "(" + results[i].playerBlackJack + " Blackjack)";
 		ties.innerHTML = results[i].draw;
 		losses.innerHTML = results[i].croupierWins;
 
