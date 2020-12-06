@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+</head>
+<body>
+
+  <div class="container">
+    <br />
+    <div class="jumbotron">
+      <h1 class="display-4">Blackjack simulator</h1>
+      <p class="lead">This is a simple blackjack game simulator to evaluate how the stop limit influences the odds of winning.</p>
+      <hr class="my-4">
+      Developed as a hobby by Joaquín Alfonso González. Source code of this website is available at <a href="https://github.com/joaquinalfonso/Blackjack-Simulator" target="_blank">github</a>
+    </div>    
+    
+    <form class="form">
+      <div class="form-group row">
+        <label for="gamesNumber"  class="col-sm-2 col-form-label labelForm">Number of games</label>
+        <div class="col-sm-2 dataForm">
+          <input type="number" class="form-control" id="gamesNumber" name="gamesNumber" min="1">
+        </div>
+        <button type="button" id="RunButton" class="btn btn-primary mb-2">                                                
+          <span class="float">Run simulation</span>
+        </button>
+      </div>
+    </form>
+    <br />
+
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="card bg-light" style="max-width: 18rem;">
+          <div class="card-header">
+            <h5>Player 1</h5>
+            <div class="form-group row">
+              <label for="playerLimit1" class="col-sm-8">Stop if cards sum is higher than</label>
+              <select name="playerLimit1" id="playerLimit1" class="form-control col-sm-4" >
+              </select>
+            </div> 
+          </div>
+          <div class="card-body">
+            <p class="card-text">
+              <form class="form">
+                
+                <div class="form-group row">
+                  <label for="won1"  class="col-sm-4 labelForm">Won</label>
+                  <div class="col-sm-8 dataForm">
+                    <span id="won1"></span>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="ties1"  class="col-sm-4 labelForm">Ties</label>
+                  <div class="col-sm-8 dataForm">
+                    <span id="ties1"></span>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="losses1"  class="col-sm-4 labelForm">Losses</label>
+                  <div class="col-sm-8 dataForm">
+                    <span id="losses1"></span>
+                  </div>
+                </div>  
+
+                <div class="form-group mb-2" id="pieChart1Group">
+                  <canvas id="pieChart1" width="100px" height="100px"></canvas>
+                </div>
+
+              </form>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="card bg-light" style="max-width: 18rem;">
+          <div class="card-header">
+            <h5>Player 2</h5>
+            <div class="form-group row">
+              <label for="playerLimit2" class="col-sm-8 col-form-label_">Stop if cards sum is higher than</label>
+              <select name="playerLimit2" id="playerLimit2" class="form-control col-sm-4" >
+              </select>
+            </div> 
+          </div>
+          <div class="card-body">
+            <p class="card-text">
+              <form class="form">
+                
+                <div class="form-group row">
+                  <label for="won2"  class="col-sm-4 labelForm">Won</label>
+                  <div class="col-sm-8 dataForm">
+                    <span id="won2"></span>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="ties2"  class="col-sm-4 labelForm">Ties</label>
+                  <div class="col-sm-8 dataForm">
+                    <span id="ties2"></span>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="losses2"  class="col-sm-4 labelForm">Losses</label>
+                  <div class="col-sm-8 dataForm">
+                    <span id="losses2"></span>
+                  </div>
+                </div>  
+
+                <div class="form-group mb-2" id="pieChart1Group">
+                  <canvas id="pieChart2" width="100px" height="100px"></canvas>
+                </div>
+
+              </form>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="card bg-light" style="max-width: 18rem;">
+          <div class="card-header">
+            <h5>Player 3</h5>
+            <div class="form-group row">
+              <label for="playerLimit3" class="col-sm-8">Stop if cards sum is higher than</label>
+              <select name="playerLimit3" id="playerLimit3" class="form-control col-sm-4" >
+              </select>
+            </div> 
+          </div>
+          <div class="card-body">
+            <p class="card-text">
+              <form class="form">
+                
+                <div class="form-group row">
+                  <label for="won3"  class="col-sm-4 labelForm">Won</label>
+                  <div class="col-sm-8 dataForm">
+                    <span id="won3"></span>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="ties3"  class="col-sm-4 labelForm">Ties</label>
+                  <div class="col-sm-8 dataForm">
+                    <span id="ties3"></span>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="losses3"  class="col-sm-4 labelForm">Losses</label>
+                  <div class="col-sm-8 dataForm">
+                    <span id="losses3"></span>
+                  </div>
+                </div>  
+
+                <div class="form-group mb-2" id="pieChart1Group">
+                  <canvas id="pieChart3" width="100px" height="100px"></canvas>
+                </div>
+
+              </form>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="card bg-light" style="max-width: 18rem;">
+          <div class="card-header">
+            <h5>Player 4</h5>
+            <div class="form-group row">
+              <label for="playerLimit4" class="col-sm-8">Stop if cards sum is higher than</label>
+              <select name="playerLimit4" id="playerLimit4" class="form-control col-sm-4" >
+              </select>
+            </div> 
+          </div>
+          <div class="card-body">
+            <p class="card-text">
+              <form class="form">
+                
+                <div class="form-group row">
+                  <label for="won4"  class="col-sm-4 labelForm">Won</label>
+                  <div class="col-sm-8 dataForm">
+                    <span id="won4"></span>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="ties4"  class="col-sm-4 labelForm">Ties</label>
+                  <div class="col-sm-8 dataForm">
+                    <span id="ties4"></span>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="losses4"  class="col-sm-4 labelForm">Losses</label>
+                  <div class="col-sm-8 dataForm">
+                    <span id="losses4"></span>
+                  </div>
+                </div>  
+
+                <div class="form-group mb-2" id="pieChart1Group">
+                  <canvas id="pieChart4" width="100px" height="100px"></canvas>
+                </div>
+
+              </form>
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script type="module" src="./js/app.js"></script>
+
+</body>
+</html>
