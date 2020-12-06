@@ -21,3 +21,7 @@ npm install --global http-server
 cd src
 http-server
 ```
+
+## Debug
+* A few card scoring are tested on page load
+* The details of simulation are written in the javascript console
