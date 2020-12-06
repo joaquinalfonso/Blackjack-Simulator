@@ -28,13 +28,29 @@ function PlayRounds(roundsNumber, playersLimits, printFunction) {
 		let round = blackjack.Play();
 
 		for (var player = 0; player < players.length; player = player + 1) {
+
 			let roundGameScore = round.scores[player];
 
-			results[player].croupierWins += roundGameScore == GAME_RESULT_CROUPIER_WINS || roundGameScore == GAME_RESULT_CROUPIER_BLACKJACK ? 1 : 0;
-			results[player].playerWins += roundGameScore == GAME_RESULT_PLAYER_BLACKJACK || roundGameScore == GAME_RESULT_PLAYER_WINS ? 1 : 0;
-			results[player].playerBlackJack += roundGameScore == GAME_RESULT_PLAYER_BLACKJACK ? 1 : 0;
-			results[player].draw += roundGameScore == GAME_RESULT_DRAW ? 1 : 0;
+			let playerRound = roundGameScore == GAME_RESULT_PLAYER_BLACKJACK || roundGameScore == GAME_RESULT_PLAYER_WINS ? 1 : 0;
+			let playerBJRound = roundGameScore == GAME_RESULT_PLAYER_BLACKJACK ? 1 : 0;
+			let drawRound = roundGameScore == GAME_RESULT_DRAW ? 1 : 0;
+			let croupierRound = roundGameScore == GAME_RESULT_CROUPIER_WINS || roundGameScore == GAME_RESULT_CROUPIER_BLACKJACK ? 1 : 0;
+
+			results[player].playerWins += playerRound;
+			results[player].playerBlackJack += playerBJRound;
+			results[player].draw += drawRound;
+			results[player].croupierWins += croupierRound;
+
+			
+			results[player].roundSerie.push(i + 1);
+			results[player].playerSerie.push(results[player].playerWins);
+			results[player].playerBlackJackSerie.push(results[player].playerBlackJack);
+        	results[player].drawSerie.push(results[player].draw);
+        	results[player].croupierSerie.push(results[player].croupierWins);
+
 		}
+
+		console.log(results);
 
 		console.log("End Round " + (i + 1));
 	}
@@ -119,6 +135,7 @@ function PrintResults(results) {
 		losses.innerHTML = results[i].croupierWins;
 
 		DrawPieChart("pieChart" + (i + 1), [results[i].playerWins, results[i].draw, results[i].croupierWins]);
+		DrawSeriesChart("seriesChart" + (i + 1), results[i]);
 	}
 }
 
@@ -167,6 +184,85 @@ function DrawPieChart(chartId, data) {
 	};
 
 	let pieChart = new Chart(ctx, config);
+}
+
+
+function DrawSeriesChart(chartId, data) {
+	var ctx = document.getElementById(chartId).getContext("2d");
+
+	var max_of_array = Math.max.apply(Math, data.roundSerie);
+	console.log(max_of_array);
+
+	let seriesChart = new Chart(ctx, {
+		type: "line",
+
+		data: {
+			labels: data.roundSerie,
+			datasets: [
+				{
+					label: "Wons",
+					fill: false,
+					lineTension: 0,
+					backgroundColor: colors.wons, 
+					borderColor: colors.wons, 
+					data: data.playerSerie,
+					pointRadius: 1
+				},
+				{
+					label: "Ties",
+					fill: false,
+					lineTension: 0,
+					backgroundColor: colors.ties, 
+					borderColor: colors.ties, 
+					data: data.drawSerie,
+					pointRadius: 1
+				},
+				{
+					label: "Losses",
+					fill: false,
+					lineTension: 0,
+					backgroundColor: colors.losses,
+					borderColor: colors.losses,
+					data: data.croupierSerie,
+					pointRadius: 1
+				}
+			],
+		},
+		options: {
+			legend: {
+				display: false,
+			},
+			responsive: true,
+			title: {
+				display: false,
+			},
+			hover: {
+				mode: "nearest",
+				intersect: true
+			},
+			scales: {
+				xAxes: [{
+					display: true,
+					scaleLabel: {
+						display: true,
+						labelString: 'Game'
+					}
+				}],
+				yAxes: [{
+					display: true,					
+					scaleLabel: {						
+						display: false,
+						stacked: true,
+						labelString: 'Value'
+					},
+					ticks: {
+						beginAtZero: true,
+						max: max_of_array
+					}
+				}]
+			},			
+		}
+	});
 }
 
 function RunButtonClick() {
