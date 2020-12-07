@@ -146,49 +146,7 @@ export class Blackjack {
 		return cards;
 	}    
 
-    test(){
-
-        console.log("Testing...");
-
-        let hand = [];
-
-        let aceCard = {"suit" : "Test",	"rank"  : ACE_CARD} ;
-        let jCard = {"suit" : "Test",	"rank"  : J_CARD} ;
-        let sevenCard = {"suit" : "Test",	"rank"  : 7} ;
-
-        hand.length=0;
-        hand.push(aceCard);        
-        hand.push(aceCard);
-        console.log(this.score(hand)===12 ? "OK" : "ERROR");
-
-        hand.length=0;
-        hand.push(aceCard);        
-        hand.push(jCard);
-        console.log(this.score(hand)===BLACK_JACK_SCORE ? "OK" : "ERROR");
-
-        hand.length=0;
-        hand.push(aceCard);
-        hand.push(aceCard);
-        hand.push(jCard);
-        console.log(this.score(hand)===12 ? "OK" : "ERROR");
-
-        hand.length=0;
-        hand.push(aceCard);
-        hand.push(aceCard);
-        hand.push(jCard);
-        hand.push(aceCard);
-        console.log(this.score(hand)===13 ? "OK" : "ERROR");
-
-        hand.length=0;
-        hand.push(aceCard);
-        hand.push(aceCard);
-        hand.push(jCard);
-        hand.push(aceCard);
-        hand.push(sevenCard);
-
-        console.log(this.score(hand)===20 ? "OK" : "ERROR");
-
-    }
+    
 
 
 }
