@@ -9,7 +9,7 @@ export const JQK_SCORE = 10;
 
 export const GAME_RESULT_PLAYER_BLACKJACK = 2;
 export const GAME_RESULT_PLAYER_WINS = 1;
-export const GAME_RESULT_DRAW = 0;
+export const GAME_RESULT_TIE = 0;
 export const GAME_RESULT_DEALER_WINS = -1;
 export const GAME_RESULT_DEALER_BLACKJACK = -2;
 
@@ -86,7 +86,7 @@ export class Blackjack {
         }
         
         if (playerScore === coupierScore) {
-            return GAME_RESULT_DRAW;
+            return GAME_RESULT_TIE;
         }
         
         if (playerScore === BLACK_JACK_SCORE) {

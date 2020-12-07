@@ -59,7 +59,7 @@ export function DrawSeriesChart(chartId, data) {
 					lineTension: 0,
 					backgroundColor: colors.ties, 
 					borderColor: colors.ties, 
-					data: data.drawSerie,
+					data: data.tieSerie,
 					pointRadius: 1
 				},
 				{

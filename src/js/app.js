@@ -1,7 +1,7 @@
 import { Player } from "./player.js";
 import { Result } from "./result.js";
 import { Dealer } from "./dealer.js";
-import { Blackjack, BLACK_JACK_SCORE, GAME_RESULT_PLAYER_BLACKJACK, GAME_RESULT_PLAYER_WINS, GAME_RESULT_DRAW, GAME_RESULT_DEALER_WINS, GAME_RESULT_DEALER_BLACKJACK } from "./blackjack.js";
+import { Blackjack, BLACK_JACK_SCORE, GAME_RESULT_PLAYER_BLACKJACK, GAME_RESULT_PLAYER_WINS, GAME_RESULT_TIE, GAME_RESULT_DEALER_WINS, GAME_RESULT_DEALER_BLACKJACK } from "./blackjack.js";
 import { GetControlSelectedElement, SetControlSelectElement, GetControlIntegerElement, SetControlIntegerValue} from "./ui.js"
 import { DrawPieChart, DrawSeriesChart} from "./chart.js";
 import { TestScore } from "./blackjack.test.js";
@@ -32,19 +32,19 @@ function PlayRounds(roundsNumber, playersLimits, printFunction) {
 
 			let playerRound = roundGameScore == GAME_RESULT_PLAYER_BLACKJACK || roundGameScore == GAME_RESULT_PLAYER_WINS ? 1 : 0;
 			let playerBJRound = roundGameScore == GAME_RESULT_PLAYER_BLACKJACK ? 1 : 0;
-			let drawRound = roundGameScore == GAME_RESULT_DRAW ? 1 : 0;
+			let tieRound = roundGameScore == GAME_RESULT_TIE ? 1 : 0;
 			let dealerRound = roundGameScore == GAME_RESULT_DEALER_WINS || roundGameScore == GAME_RESULT_DEALER_BLACKJACK ? 1 : 0;
 
 			results[player].playerWins += playerRound;
 			results[player].playerBlackJack += playerBJRound;
-			results[player].draw += drawRound;
+			results[player].tie += tieRound;
 			results[player].dealerWins += dealerRound;
 
 			
 			results[player].roundSerie.push(i + 1);
 			results[player].playerSerie.push(results[player].playerWins);
 			results[player].playerBlackJackSerie.push(results[player].playerBlackJack);
-        	results[player].drawSerie.push(results[player].draw);
+        	results[player].tieSerie.push(results[player].tie);
         	results[player].dealerSerie.push(results[player].dealerWins);
 
 		}
@@ -130,10 +130,10 @@ function PrintResults(results) {
 		let losses = document.getElementById("losses" + (i + 1));
 
 		won.innerHTML = results[i].playerWins + "<br />" + "(" + results[i].playerBlackJack + " Blackjack)";
-		ties.innerHTML = results[i].draw;
+		ties.innerHTML = results[i].tie;
 		losses.innerHTML = results[i].dealerWins;
 
-		DrawPieChart("pieChart" + (i + 1), [results[i].playerWins, results[i].draw, results[i].dealerWins]);
+		DrawPieChart("pieChart" + (i + 1), [results[i].playerWins, results[i].tie, results[i].dealerWins]);
 		DrawSeriesChart("seriesChart" + (i + 1), results[i]);
 	}
 }
