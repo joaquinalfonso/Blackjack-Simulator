@@ -68,7 +68,7 @@ export function DrawSeriesChart(chartId, data) {
 					lineTension: 0,
 					backgroundColor: colors.losses,
 					borderColor: colors.losses,
-					data: data.croupierSerie,
+					data: data.dealerSerie,
 					pointRadius: 1
 				}
 			],

@@ -1,10 +1,10 @@
-import { CROUPIER_STOP_LIMIT } from "./blackjack.js"
+import { DEALER_STOP_LIMIT } from "./blackjack.js"
 
-export class Croupier{
+export class Dealer{
 
 	constructor() {
 		this.hand = [];
-		this.stopLimit = CROUPIER_STOP_LIMIT;
+		this.stopLimit = DEALER_STOP_LIMIT;
 	}
 
 	shuffle(deck){
@@ -19,7 +19,7 @@ export class Croupier{
 	}
 	
 	keepPlaying(blackjack){	
-		/* El croupier debe pedir cartas hasta que llegue a 17 */	
+		/* El dealer debe pedir cartas hasta que llegue a 17 */	
 		var score = blackjack.score(this.hand);	
 		return score <= this.stopLimit;		
 	}

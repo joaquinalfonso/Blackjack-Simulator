@@ -1,8 +1,8 @@
 
 export class Round{
 
-	constructor(croupier, players, scores) {
-		this.croupier = croupier;
+	constructor(dealer, players, scores) {
+		this.dealer = dealer;
         this.players = players;
         this.scores = scores;
 	}

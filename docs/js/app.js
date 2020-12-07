@@ -1,7 +1,7 @@
 import { Player } from "./player.js";
 import { Result } from "./result.js";
-import { Croupier } from "./croupier.js";
-import { Blackjack, BLACK_JACK_SCORE, GAME_RESULT_PLAYER_BLACKJACK, GAME_RESULT_PLAYER_WINS, GAME_RESULT_DRAW, GAME_RESULT_CROUPIER_WINS, GAME_RESULT_CROUPIER_BLACKJACK } from "./blackjack.js";
+import { Dealer } from "./dealer.js";
+import { Blackjack, BLACK_JACK_SCORE, GAME_RESULT_PLAYER_BLACKJACK, GAME_RESULT_PLAYER_WINS, GAME_RESULT_DRAW, GAME_RESULT_DEALER_WINS, GAME_RESULT_DEALER_BLACKJACK } from "./blackjack.js";
 
 const DEFAULT_PLAYER1_STOPLIMIT = 16;
 const DEFAULT_PLAYER2_STOPLIMIT = 17;
@@ -21,10 +21,10 @@ function PlayRounds(roundsNumber, playersLimits, printFunction) {
 	for (var i = 0; i < roundsNumber; i = i + 1) {
 		console.log("Round " + (i + 1));
 
-		let croupier = new Croupier();
+		let dealer = new Dealer();
 		let players = CreatePlayers(playersLimits);
 
-		let blackjack = new Blackjack(croupier, players);
+		let blackjack = new Blackjack(dealer, players);
 		let round = blackjack.Play();
 
 		for (var player = 0; player < players.length; player = player + 1) {
@@ -34,19 +34,19 @@ function PlayRounds(roundsNumber, playersLimits, printFunction) {
 			let playerRound = roundGameScore == GAME_RESULT_PLAYER_BLACKJACK || roundGameScore == GAME_RESULT_PLAYER_WINS ? 1 : 0;
 			let playerBJRound = roundGameScore == GAME_RESULT_PLAYER_BLACKJACK ? 1 : 0;
 			let drawRound = roundGameScore == GAME_RESULT_DRAW ? 1 : 0;
-			let croupierRound = roundGameScore == GAME_RESULT_CROUPIER_WINS || roundGameScore == GAME_RESULT_CROUPIER_BLACKJACK ? 1 : 0;
+			let dealerRound = roundGameScore == GAME_RESULT_DEALER_WINS || roundGameScore == GAME_RESULT_DEALER_BLACKJACK ? 1 : 0;
 
 			results[player].playerWins += playerRound;
 			results[player].playerBlackJack += playerBJRound;
 			results[player].draw += drawRound;
-			results[player].croupierWins += croupierRound;
+			results[player].dealerWins += dealerRound;
 
 			
 			results[player].roundSerie.push(i + 1);
 			results[player].playerSerie.push(results[player].playerWins);
 			results[player].playerBlackJackSerie.push(results[player].playerBlackJack);
         	results[player].drawSerie.push(results[player].draw);
-        	results[player].croupierSerie.push(results[player].croupierWins);
+        	results[player].dealerSerie.push(results[player].dealerWins);
 
 		}
 
@@ -132,9 +132,9 @@ function PrintResults(results) {
 
 		won.innerHTML = results[i].playerWins + "<br />" + "(" + results[i].playerBlackJack + " Blackjack)";
 		ties.innerHTML = results[i].draw;
-		losses.innerHTML = results[i].croupierWins;
+		losses.innerHTML = results[i].dealerWins;
 
-		DrawPieChart("pieChart" + (i + 1), [results[i].playerWins, results[i].draw, results[i].croupierWins]);
+		DrawPieChart("pieChart" + (i + 1), [results[i].playerWins, results[i].draw, results[i].dealerWins]);
 		DrawSeriesChart("seriesChart" + (i + 1), results[i]);
 	}
 }
@@ -223,7 +223,7 @@ function DrawSeriesChart(chartId, data) {
 					lineTension: 0,
 					backgroundColor: colors.losses,
 					borderColor: colors.losses,
-					data: data.croupierSerie,
+					data: data.dealerSerie,
 					pointRadius: 1
 				}
 			],

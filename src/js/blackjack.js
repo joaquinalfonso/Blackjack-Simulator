@@ -10,48 +10,48 @@ export const JQK_SCORE = 10;
 export const GAME_RESULT_PLAYER_BLACKJACK = 2;
 export const GAME_RESULT_PLAYER_WINS = 1;
 export const GAME_RESULT_DRAW = 0;
-export const GAME_RESULT_CROUPIER_WINS = -1;
-export const GAME_RESULT_CROUPIER_BLACKJACK = -2;
+export const GAME_RESULT_DEALER_WINS = -1;
+export const GAME_RESULT_DEALER_BLACKJACK = -2;
 
-export const CROUPIER_STOP_LIMIT = 16;
+export const DEALER_STOP_LIMIT = 16;
 
 export class Blackjack {
 
-    constructor(croupier, players){
-        this.croupier = croupier;
+    constructor(dealer, players){
+        this.dealer = dealer;
         this.players = players;        
     }
     
     Play(){
 
         let deck = new Deck();
-        this.croupier.shuffle(deck);
+        this.dealer.shuffle(deck);
 
         //console.log("Start");
 
         // Initial cards deal 
         this.players.map(player => {
-            this.croupier.dealCard(deck, player);
-            this.croupier.dealCard(deck, player);
+            this.dealer.dealCard(deck, player);
+            this.dealer.dealCard(deck, player);
         })
 
-        this.croupier.dealCard(deck, this.croupier);
+        this.dealer.dealCard(deck, this.dealer);
         
         //Ask for cards
         this.players.map(player => {
             while(player.keepPlaying(this)){ 		
-                this.croupier.dealCard(deck, player);		
+                this.dealer.dealCard(deck, player);		
             }
         });
        
-        while(this.croupier.keepPlaying(this)){ 		
-            this.croupier.dealCard(deck, this.croupier);		
+        while(this.dealer.keepPlaying(this)){ 		
+            this.dealer.dealCard(deck, this.dealer);		
         }
         
         // Get results
         let gameResults = this.GetGameResults(this.players);
 
-        let round = new Round(this.croupier, this.players, gameResults);
+        let round = new Round(this.dealer, this.players, gameResults);
         return round;
     }
 
@@ -59,7 +59,7 @@ export class Blackjack {
         let gameResults = [];
 
         this.players.map(player => {
-            let gameResult = this.evaluateHands(player.hand, this.croupier.hand);
+            let gameResult = this.evaluateHands(player.hand, this.dealer.hand);
             console.log("Game result : " + (gameResult));
             gameResults.push(gameResult);           
         });
@@ -68,13 +68,13 @@ export class Blackjack {
     }
 
 	
-	evaluateHands(playerHand, croupierHand) {
+	evaluateHands(playerHand, dealerHand) {
 			
 		var playerScore = this.score(playerHand);
-		var coupierScore = this.score(croupierHand);
+		var coupierScore = this.score(dealerHand);
         
         console.log("Player hand: " + this.readCards(playerHand));
-        console.log("croupier hand: " + this.readCards(croupierHand));
+        console.log("dealer hand: " + this.readCards(dealerHand));
 
         /* Si el valor de la mano del jugador excede los 21 puntos, éste pierde de manera automática. 
            Si no se ha pasado y su puntuación supera a la del crupier, gana en una proporción 1 a 1. 
@@ -82,7 +82,7 @@ export class Blackjack {
            Si el jugador gana al crupier con un blackjack, recibe un pago de 3 a 2. */
 
         if (playerScore > BLACK_JACK_SCORE) {
-            return GAME_RESULT_CROUPIER_WINS;
+            return GAME_RESULT_DEALER_WINS;
         }
         
         if (playerScore === coupierScore) {
@@ -101,7 +101,7 @@ export class Blackjack {
             return GAME_RESULT_PLAYER_WINS;
         }    
 
-        return GAME_RESULT_CROUPIER_WINS;
+        return GAME_RESULT_DEALER_WINS;
 
     }
     
