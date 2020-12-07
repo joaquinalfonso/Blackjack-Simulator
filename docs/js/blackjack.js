@@ -9,7 +9,7 @@ export const JQK_SCORE = 10;
 
 export const GAME_RESULT_PLAYER_BLACKJACK = 2;
 export const GAME_RESULT_PLAYER_WINS = 1;
-export const GAME_RESULT_DRAW = 0;
+export const GAME_RESULT_TIE = 0;
 export const GAME_RESULT_DEALER_WINS = -1;
 export const GAME_RESULT_DEALER_BLACKJACK = -2;
 
@@ -86,7 +86,7 @@ export class Blackjack {
         }
         
         if (playerScore === coupierScore) {
-            return GAME_RESULT_DRAW;
+            return GAME_RESULT_TIE;
         }
         
         if (playerScore === BLACK_JACK_SCORE) {
@@ -146,49 +146,7 @@ export class Blackjack {
 		return cards;
 	}    
 
-    test(){
-
-        console.log("Testing...");
-
-        let hand = [];
-
-        let aceCard = {"suit" : "Test",	"rank"  : ACE_CARD} ;
-        let jCard = {"suit" : "Test",	"rank"  : J_CARD} ;
-        let sevenCard = {"suit" : "Test",	"rank"  : 7} ;
-
-        hand.length=0;
-        hand.push(aceCard);        
-        hand.push(aceCard);
-        console.log(this.score(hand)===12 ? "OK" : "ERROR");
-
-        hand.length=0;
-        hand.push(aceCard);        
-        hand.push(jCard);
-        console.log(this.score(hand)===BLACK_JACK_SCORE ? "OK" : "ERROR");
-
-        hand.length=0;
-        hand.push(aceCard);
-        hand.push(aceCard);
-        hand.push(jCard);
-        console.log(this.score(hand)===12 ? "OK" : "ERROR");
-
-        hand.length=0;
-        hand.push(aceCard);
-        hand.push(aceCard);
-        hand.push(jCard);
-        hand.push(aceCard);
-        console.log(this.score(hand)===13 ? "OK" : "ERROR");
-
-        hand.length=0;
-        hand.push(aceCard);
-        hand.push(aceCard);
-        hand.push(jCard);
-        hand.push(aceCard);
-        hand.push(sevenCard);
-
-        console.log(this.score(hand)===20 ? "OK" : "ERROR");
-
-    }
+    
 
 
 }
